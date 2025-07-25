@@ -44,7 +44,7 @@ const VerificationApp = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = async (values) => {
+  const handleLogin = async (values: any) => {
     setFormData((prev) => ({ ...prev, ...values }));
     setLoading(true);
 
@@ -55,7 +55,7 @@ const VerificationApp = () => {
     }, 1500);
   };
 
-  const handleVerification = async (values) => {
+  const handleVerification = async (values: any) => {
     setLoading(true);
 
     // Simulate verification
